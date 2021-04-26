@@ -1,3 +1,4 @@
+This repo is very high-level overview of GraphQL vs REST. It also icludes small Rails practice project with integrated GraphQL.
 # Why choose GraphQL over REST
 
 Typical API is built using REST principles, which means the following in practice:
@@ -19,7 +20,9 @@ On the other hand GraphQL is a new API standard developed and open-sourced by Fa
 GraphQL is often confused with being a database technology. This is a misconception - GraphQL is a query language for *APIs*, not databases. In that sense it’s database agnostic and effectively can be used in any context where an API is used and GraphQL is configured.
 
 
-GraphQL differs from rest in the following ways:
+GraphQL differs from REST in the following ways:
 
 1. Instead of multiple endpoints that return fixed data structures, a GraphQL server only exposes a single endpoint and responds with precisely the data a client asked for.
-2.
+2. Scales flexibly
+3. Solves under and overfetching problem.
+
