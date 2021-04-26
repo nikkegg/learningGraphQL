@@ -26,3 +26,52 @@ GraphQL differs from REST in the following ways:
 2. Scales flexibly
 3. Solves under and overfetching problem.
 
+## Basic Shema Definition Language syntax
+
+Intuitive:
+```
+type Query {
+  allPersons(last: Int): [Person!]!
+}
+
+type Mutation {
+  createPerson(name: String!, age: Int!): Person!
+}
+
+type Subscription {
+  newPerson: Person!
+}
+
+<!--
+Define the data struct
+
+Type: Person
+field_one:
+        label: name
+        type_of_input = String
+        input_required? (cant return null ) = true
+field_two:
+        label: age
+        type_of_input = Integer
+        input_required? = true
+field_three:
+        label: posts
+        type_of_input = array of Post types (this define many to one relationship with Person)
+        - in this case [Post!]! means that field posts
+        a. cant return null
+        b. none of the elemnts in posts array can be null
+        Note tht [] *is not* null
+        input_required? = true
+
+-->
+type Person {
+  name: String!
+  age: Int!
+  posts: [Post!]!
+}
+
+type Post {
+  title: String!
+  author: Person!
+}
+```
