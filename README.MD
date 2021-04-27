@@ -13,7 +13,8 @@ myapi.org/users
 
 4. RESt APIs structures data in an intuitive one-to-one map fashion - one endpoint returns unique response (e.g myapi.org/users cannot (or more to the point should not) return data from myapi.org/products)
 5. As a negative consequence of point above, REST APIs are prone to under and overfetching.
-    1. Underfetching -
+    1. Underfetching - issue when specific endpoint does not provide enough information. For instance if I needed both user and post info, I would have to query twice: once myapi.org/users/id to get user info and once myapi.org/users/id/posts to get post data.
+
     2. Overfetching - imagine that I want to only fetch 3 top users (by any metric for "top" - number of blog posts, number of purchases etc.). With REST APIs this is impossible - normally I would have to fetch all users, and then filter them out based on my needs. Alternative to this using REST, would be to specify separate endpoint which would return my top 3 users - but this would require creating separate endpoint for every metric. Also, what if I suddenly needed 5 top users? 10? Problem becomes apparent. Additionaly, if I want to feth users and, say their blog posts, normnally I would have to make two separate requests, such as myapi.org/users and myapi.org/user/id/blog_posts for each of the users, resulting in *N+1 query* problem. Not very efficient, especially if we think about mobile devices.
 
 On the other hand GraphQL is a new API standard developed and open-sourced by Facebook. It supports declarative data fetching, where the client can specifies exactly (by sending a POST request) what data it needs to retreive from the API.
@@ -79,5 +80,35 @@ type Person {
 type Post {
   title: String!
   author: Person!
+}
+```
+## Fragments
+Assume we have the following schema:
+
+```
+type User {
+  name: String!
+  age: Int!
+  email: String!
+  street: String!
+  zipcode: String!
+  city: String!
+}
+```
+Here, we could represent all the information that relates to the user’s physical address into a fragment:
+```
+fragment addressDetails on User {
+  name
+  street
+  zipcode
+  city
+}
+```
+Now, when writing a query to access the address information of a user, we can use the following syntax to refer to the fragment and save the work to actually spell out the four fields:
+```
+{
+  allUsers {
+    ... addressDetails
+  }
 }
 ```
