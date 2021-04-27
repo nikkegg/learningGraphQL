@@ -30,10 +30,17 @@ GraphQL differs from REST in the following ways:
 
 Intuitive:
 ```
+<!--
+Here we define what can we read
+:something is a syntax which specified what is returnd by the server
+ -->
 type Query {
   allPersons(last: Int): [Person!]!
 }
 
+<!--
+Here we define what we can create, update, delete.
+ -->
 type Mutation {
   createPerson(name: String!, age: Int!): Person!
 }
@@ -56,11 +63,10 @@ field_two:
         input_required? = true
 field_three:
         label: posts
-        type_of_input = array of Post types (this define many to one relationship with Person)
-        - in this case [Post!]! means that field posts
+        type_of_input = array of Post types (this defines many to one relationship with Person. Also, in this case [Post!]! means that field posts
         a. cant return null
         b. none of the elemnts in posts array can be null
-        Note tht [] *is not* null
+        Note tht [] *is not* null)
         input_required? = true
 
 -->
